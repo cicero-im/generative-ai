@@ -3,6 +3,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Dict, List, Optional
+from security import safe_requests
 
 
 @dataclass
@@ -302,7 +303,7 @@ class LocationAPI:
 
             for attempt in range(APIConfig.MAX_RETRIES):
                 try:
-                    response = requests.get(
+                    response = safe_requests.get(
                         APIConfig.NOMINATIM_URL,
                         params=params,
                         headers=headers,

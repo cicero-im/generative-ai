@@ -24,7 +24,6 @@ import logging
 import os
 
 from flask import Flask, render_template, request
-import requests
 import vertexai
 from vertexai.generative_models import (
     FunctionDeclaration,
@@ -32,6 +31,7 @@ from vertexai.generative_models import (
     GenerativeModel,
     Tool,
 )
+from security import safe_requests
 
 logger = logging.getLogger(__name__)
 
@@ -103,7 +103,7 @@ def get_coordinates() -> str:
         headers = {
             "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
         }
-        x = requests.get(url, headers=headers)
+        x = safe_requests.get(url, headers=headers)
         raw_content = x.json()
         content = json.dumps(raw_content, indent=4)
     return render_template("index.html", content=content)

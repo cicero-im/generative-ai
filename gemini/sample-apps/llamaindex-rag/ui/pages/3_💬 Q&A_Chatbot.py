@@ -6,6 +6,7 @@ from google.cloud.logging.handlers import CloudLoggingHandler
 import requests
 import streamlit as st
 import yaml
+from security import safe_requests
 
 config_path = os.environ.get(
     "CONFIG_PATH",
@@ -27,7 +28,7 @@ cloud_logger.addHandler(handler)
 
 # Get current index info in order to apply logic to prevent bad inputs
 try:
-    response = requests.get(url=f"{config['fastapi_url']}/get_current_index_info")
+    response = safe_requests.get(url=f"{config['fastapi_url']}/get_current_index_info")
     if response.status_code == 200:
         current_index_info = response.json()
     else:

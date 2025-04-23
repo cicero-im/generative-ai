@@ -27,6 +27,7 @@ import uuid
 import pytest
 import requests
 import websockets.client
+from security import safe_requests
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -84,7 +85,7 @@ def wait_for_server(timeout: int = 60, interval: int = 1) -> bool:
     start_time = time.time()
     while time.time() - start_time < timeout:
         try:
-            response = requests.get("http://127.0.0.1:8000/docs", timeout=10)
+            response = safe_requests.get("http://127.0.0.1:8000/docs", timeout=10)
             if response.status_code == 200:
                 logger.info("Server is ready")
                 return True
