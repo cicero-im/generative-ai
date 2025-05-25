@@ -35,7 +35,7 @@ prompt_instructions = {
 
 # Function to fetch all prompts
 def fetch_prompts():
-    response = requests.get(f"{fastapi_url}/get_all_prompts")
+    response = requests.get(f"{fastapi_url}/get_all_prompts", timeout=60)
     if response.status_code == 200:
         return response.json()
     else:
@@ -48,7 +48,7 @@ def update_prompt(prompt_name, new_content):
     response = requests.post(
         f"{fastapi_url}/update_prompt",
         json={"prompt_name": prompt_name, "new_content": new_content},
-    )
+    timeout=60)
     if response.status_code == 200:
         st.success(f"Prompt '{prompt_name}' updated successfully!")
     else:

@@ -69,7 +69,7 @@ def call_reranker(query, records, google_token):
         "records": records,
     }
 
-    response = requests.post(url, headers=headers, json=data)
+    response = requests.post(url, headers=headers, json=data, timeout=60)
     print(response)
     response.raise_for_status()  # Raise an error if the request failed
     return response.json()

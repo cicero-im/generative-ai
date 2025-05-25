@@ -22,7 +22,7 @@ fastapi_url = config["fastapi_url"]
 
 
 def fetch_vector_search_data():
-    response = requests.get(f"{fastapi_url}/list_vector_search_indexes_and_endpoints")
+    response = requests.get(f"{fastapi_url}/list_vector_search_indexes_and_endpoints", timeout=60)
     if response.status_code == 200:
         return response.json()
     else:
@@ -33,7 +33,7 @@ def fetch_vector_search_data():
 
 
 def fetch_firestore_databases():
-    response = requests.get(f"{fastapi_url}/list_firestore_databases")
+    response = requests.get(f"{fastapi_url}/list_firestore_databases", timeout=60)
     if response.status_code == 200:
         return response.json()
     else:
@@ -47,7 +47,7 @@ def fetch_firestore_collections(selected_database: str):
     response = requests.post(
         f"{fastapi_url}/list_firestore_collections",
         json={"firestore_db_name": selected_database},
-    )
+    timeout=60)
     if response.status_code == 200:
         return response.json()
     else:
@@ -75,7 +75,7 @@ def update_index(
             "firestore_db_name": firestore_db_name,
             "firestore_namespace": firestore_namespace,
         },
-    )
+    timeout=60)
     if response.status_code == 200:
         st.success("Updated data source(s) successfully!")
     else:

@@ -27,7 +27,7 @@ cloud_logger.addHandler(handler)
 
 # Get current index info in order to apply logic to prevent bad inputs
 try:
-    response = requests.get(url=f"{config['fastapi_url']}/get_current_index_info")
+    response = requests.get(url=f"{config['fastapi_url']}/get_current_index_info", timeout=60)
     if response.status_code == 200:
         current_index_info = response.json()
     else:

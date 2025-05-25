@@ -10,7 +10,7 @@ backend_url = os.environ.get("BACKEND_URL", "http://localhost:8080")
 def get_chat_response(user_prompt: str, messages: []) -> str:
     # call Java backend
     request = {"prompt": user_prompt}
-    response = requests.post(backend_url + "/chat", json=request)
+    response = requests.post(backend_url + "/chat", json=request, timeout=60)
     if response.status_code != 200:
         raise Exception(f"Bad response from backend: {response.text}")
     return response.json()["response"]

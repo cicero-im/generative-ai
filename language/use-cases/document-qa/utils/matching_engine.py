@@ -206,7 +206,7 @@ class MatchingEngine(VectorStore):
         self.credentials.refresh(request)
         header = {"Authorization": "Bearer " + self.credentials.token}
 
-        return requests.post(rpc_address, data=endpoint_json_data, headers=header)
+        return requests.post(rpc_address, data=endpoint_json_data, headers=header, timeout=60)
 
     def similarity_search(
         self,

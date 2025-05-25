@@ -81,7 +81,7 @@ class Client:
         }
         if self.authenticate_request:
             headers["Authorization"] = f"Bearer {self.id_token}"
-        requests.post(url, data=json.dumps(feedback_dict), headers=headers)
+        requests.post(url, data=json.dumps(feedback_dict), headers=headers, timeout=60)
 
     def stream_events(
         self, data: Dict[str, Any]
@@ -91,8 +91,8 @@ class Client:
         if self.authenticate_request:
             headers["Authorization"] = f"Bearer {self.id_token}"
         with requests.post(
-            self.url, json={"input": data}, headers=headers, stream=True
-        ) as response:
+            self.url, json={"input": data}, headers=headers, stream=True, 
+        timeout=60) as response:
             for line in response.iter_lines():
                 if line:
                     try:
