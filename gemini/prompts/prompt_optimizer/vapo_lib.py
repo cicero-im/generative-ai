@@ -18,7 +18,6 @@
 import csv
 import io
 import json
-import random
 import re
 import string
 import subprocess
@@ -46,6 +45,7 @@ from vertexai.generative_models import (
     Tool,
     ToolConfig,
 )
+import secrets
 
 
 def is_target_required_metric(eval_metric: str) -> bool:
@@ -687,7 +687,7 @@ class ResultsUI:
 
 def get_id(length: int = 8) -> str:
     """Generate a uuid of a specified length (default=8)."""
-    return "".join(random.choices(string.ascii_lowercase + string.digits, k=length))
+    return "".join(secrets.SystemRandom().choices(string.ascii_lowercase + string.digits, k=length))
 
 
 def get_auth_token() -> str:

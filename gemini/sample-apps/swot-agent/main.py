@@ -19,7 +19,6 @@ import asyncio
 from collections import defaultdict
 import logging
 import os
-import random
 import time
 from typing import Any, Dict, Final
 
@@ -29,6 +28,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 import uvicorn
+import secrets
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -169,7 +169,7 @@ def emulate_tool_completion(session_id: str, message: str) -> None:
     """Pydantic AI doesn't provide a post-processing hook, so we need to emulate one."""
 
     # Sleep a random amount of time between 0 and 5 seconds
-    time.sleep(random.randint(0, 5))
+    time.sleep(secrets.SystemRandom().randint(0, 5))
     status_store[session_id].append(message)
 
 
