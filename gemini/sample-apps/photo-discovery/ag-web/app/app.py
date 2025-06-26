@@ -131,7 +131,7 @@ def ask_gemini():
 def ask_gms():
     query = request.args.get("query")
     item = search_gms(query, 1)[0]["document"]["structData"]
-    return json.dumps(item)
+    return (json.dumps(item), {'Content-Type': 'application/json'})
 
 
 # run Flask app
