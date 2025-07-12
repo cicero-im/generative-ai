@@ -27,6 +27,7 @@ import uuid
 import pytest
 import requests
 import websockets.client
+from security import safe_command
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -59,8 +60,7 @@ def start_server() -> subprocess.Popen[str]:
     ]
     env = os.environ.copy()
     env["INTEGRATION_TEST"] = "TRUE"
-    process = subprocess.Popen(
-        command,
+    process = safe_command.run(subprocess.Popen, command,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,

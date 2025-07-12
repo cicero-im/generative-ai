@@ -26,6 +26,7 @@ import uuid
 import pytest
 import requests
 from requests.exceptions import RequestException
+from security import safe_command
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -58,8 +59,7 @@ def start_server() -> subprocess.Popen[str]:
     ]
     env = os.environ.copy()
     env["INTEGRATION_TEST"] = "TRUE"
-    process = subprocess.Popen(
-        command,
+    process = safe_command.run(subprocess.Popen, command,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
