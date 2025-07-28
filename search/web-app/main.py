@@ -32,9 +32,9 @@ from consts import (
 from ekg_utils import search_public_kg
 from flask import Flask, render_template, request
 from google.api_core.exceptions import ResourceExhausted
-import requests
 from vais_utils import list_documents, recommend_personalize, search_enterprise_search
 from werkzeug.exceptions import HTTPException
+from security import safe_requests
 
 app = Flask(__name__)
 
@@ -208,7 +208,7 @@ def imagesearch_vais() -> str:
         # Check if text is a url
         image_url = urlparse(search_query)
         if all([image_url.scheme, image_url.netloc, image_url.path]):
-            image_response = requests.get(
+            image_response = safe_requests.get(
                 image_url.geturl(), allow_redirects=True, timeout=5
             )
             mime_type = image_response.headers["Content-Type"]

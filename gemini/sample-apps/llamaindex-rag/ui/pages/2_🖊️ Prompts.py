@@ -3,6 +3,7 @@ import os
 import requests
 import streamlit as st
 import yaml
+from security import safe_requests
 
 # Load configuration
 config_path = os.environ.get(
@@ -35,7 +36,7 @@ prompt_instructions = {
 
 # Function to fetch all prompts
 def fetch_prompts():
-    response = requests.get(f"{fastapi_url}/get_all_prompts")
+    response = safe_requests.get(f"{fastapi_url}/get_all_prompts")
     if response.status_code == 200:
         return response.json()
     else:

@@ -4,6 +4,7 @@ import os
 import requests
 import streamlit as st
 import yaml
+from security import safe_requests
 
 logging.basicConfig(
     encoding="utf-8", level=logging.INFO
@@ -22,7 +23,7 @@ fastapi_url = config["fastapi_url"]
 
 
 def fetch_vector_search_data():
-    response = requests.get(f"{fastapi_url}/list_vector_search_indexes_and_endpoints")
+    response = safe_requests.get(f"{fastapi_url}/list_vector_search_indexes_and_endpoints")
     if response.status_code == 200:
         return response.json()
     else:
@@ -33,7 +34,7 @@ def fetch_vector_search_data():
 
 
 def fetch_firestore_databases():
-    response = requests.get(f"{fastapi_url}/list_firestore_databases")
+    response = safe_requests.get(f"{fastapi_url}/list_firestore_databases")
     if response.status_code == 200:
         return response.json()
     else:

@@ -5,7 +5,7 @@ from math import atan2, cos, radians, sin, sqrt
 from typing import Any, Dict, List, Optional, Union
 
 from pydantic import BaseModel
-import requests
+from security import safe_requests
 
 # Constants
 DEFAULT_TIMEOUT = 30
@@ -427,7 +427,7 @@ def get_city_coordinates(
         if debug:
             print(f"\nDebug: Getting coordinates for {city}, {state}")
 
-        response = requests.get(
+        response = safe_requests.get(
             url, params=params, headers=headers, timeout=DEFAULT_TIMEOUT
         )
         response.raise_for_status()
@@ -488,7 +488,7 @@ def get_station_data_filtered(
     }
 
     try:
-        response = requests.get(url, params=base_params, timeout=DEFAULT_TIMEOUT)
+        response = safe_requests.get(url, params=base_params, timeout=DEFAULT_TIMEOUT)
         response.raise_for_status()
         data = response.json()
 
