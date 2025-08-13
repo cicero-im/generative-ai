@@ -161,7 +161,7 @@ def validate_prompt_and_data(
     data = load_dataset(dataset_path)
     placeholder_to_content_json = json.loads(placeholder_to_content)
     template = re.sub(r"(?<!{){(?!{)(\s*\w+\s*)(?<!})}(?!})", r"{{\1}}", template)
-    env = jinja2.Environment()
+    env = jinja2.Environment(autoescape=True)
     try:
         parsed_content = env.parse(template)
     except jinja2.exceptions.TemplateSyntaxError as e:
@@ -260,7 +260,7 @@ def update_best_display(
     def placeholder_llm() -> str:
         return "{{llm()}}"
 
-    env = jinja2.Environment(loader=jinja2.BaseLoader())
+    env = jinja2.Environment(loader=jinja2.BaseLoader(), autoescape=True)
     env.globals["llm"] = placeholder_llm
 
     best_template = best_template.replace("store('answer', llm())", "llm()")
