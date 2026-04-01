@@ -7,7 +7,7 @@ authors = ["Your Name <your@email.com>"]
 [tool.poetry.dependencies]
 python = "^3.10"
 kfp = "^2.10.1"
-google-cloud-aiplatform = "^1.72.0"
+google-cloud-aiplatform = "^1.133.0"
 
 
 [build-system]
