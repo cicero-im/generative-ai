@@ -29,7 +29,7 @@
     "@types/react-helmet": "^6.1.11",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "gaxios": "^6.7.1",
+    "gaxios": "^7.1.5",
     "google-auth-library": "^9.14.1",
     "jsonstream": "^1.0.3",
     "jsonstream-next": "^3.0.0",
